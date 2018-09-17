@@ -1,0 +1,33 @@
+{
+  "name": "babel",
+  "version": "1.0.0",
+  "description": "playing around with babel (how do decorators work?)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node lib/index.js",
+    "build": "babel index.js -d lib",
+    "start": "concurrently \"npm run build\" \"npm run test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flyingwip/babel.git"
+  },
+  "keywords": [
+    "babel",
+    "decorators"
+  ],
+  "author": "martijn wip",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flyingwip/babel/issues"
+  },
+  "homepage": "https://github.com/flyingwip/babel#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.0.1"
+  },
+  "dependencies": {}
+}
