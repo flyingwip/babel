@@ -64,6 +64,7 @@ console.log( user.getFullName() );
 
 /*
 * Method with a new one that logs the arguments, calls the original method and then logs the output.
+* https://www.sitepoint.com/javascript-decorators-what-they-are/
 */
 function log(target, name, descriptor) {
   const original = descriptor.value;
