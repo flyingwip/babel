@@ -61,3 +61,64 @@ let user = new User( 'John', 'Doe' );
 
 console.log( user.getFullName() );
 
+
+/*
+* Method with a new one that logs the arguments, calls the original method and then logs the output.
+*/
+function log(target, name, descriptor) {
+  const original = descriptor.value;
+  if (typeof original === 'function') {
+    //Note that we’ve used the spread operator here to automatically build an array from all of the arguments provided, which is the more modern alternative to the old arguments value.
+    // more on https://davidwalsh.name/spread-operator
+    descriptor.value = function(...args) {
+      console.log(`Arguments: ${args}`);
+      try {
+        const result = original.apply(this, args);
+        console.log(`Result: ${result}`);
+        return result;
+      } catch (e) {
+        console.log(`Error: ${e}`);
+        throw e;
+      }
+    }
+  }
+  return descriptor;
+}
+
+
+function log2(name) {
+  return function decorator(t, n, descriptor) {
+    const original = descriptor.value;
+    if (typeof original === 'function') {
+      descriptor.value = function(...args) {
+        console.log(`Arguments for ${name}: ${args}`);
+        try {
+          const result = original.apply(this, args);
+          console.log(`Result from ${name}: ${result}`);
+          return result;
+        } catch (e) {
+          console.log(`Error from ${name}: ${e}`);
+          throw e;
+        }
+      }
+    }
+    return descriptor;
+  };
+}
+
+
+class Example {
+  @log
+  sum(a, b) {
+    return a + b;
+  }
+
+   @log2('some tag')
+  sum2(a, b) {
+    return a + b;
+  }
+}
+
+const e = new Example();
+e.sum(1, 2);
+e.sum2(3, 4);
